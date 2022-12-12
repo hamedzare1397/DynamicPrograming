@@ -2,13 +2,14 @@
 <template>
     <h1>salam</h1>
     <pre>
-      {{agent}}
+      {{agent.rewards}}
     </pre>
 </template>
 
 <script setup>
 import data from '@/data/d1.json';
+import {Agent} from '@/classes/Environment';
 
-const agent=new Agent("Hamed",data.transitions,20);
+const agent=new Agent("Hamed",data,20);
   //
 </script>

@@ -8,8 +8,7 @@ class NameSupport
 }
 
 class Environment{
-  constructor(probability,reward,Q0){
-    this.Q0=Q0;
+  constructor(probability,reward){
     this.reward=reward;
     this.probability=probability;
   }
@@ -26,16 +25,47 @@ class Environment{
 class Agent extends NameSupport
 {
   Q0=[];
-  constructor(name,data,countIterat=20){
+  constructor(name,data,countIterator=20){
     super(name);
     this.data=data;
-    this.countIterat=countIterat;
+    this.countIterator=countIterator;
+    this.Q0=this.makeQ();
   }
 
   get printData()
   {
-    console.log(this.data);
+    return this.data
   }
+  get states(){
+    return this.data.states;
+  }
+  get transitions(){
+    return this.data.transitions;
+  }
+  get actions()
+  {
+    return this.data.actions
+  }
+  get rewards()
+  {
+    return this.data.rewards;
+  }
+  makeQ(){
+    let Q=[];
+    let cols=this.actions.length;
+    let rows=this.states.length;
+    for(let i=0;i<rows;i++){
+      let row=this.rewards[1]
+      let row=[];
+      for(let j=0;j<cols;j++){
+        this.rewards["1load"]
+        row.push(0);
+      }
+      Q.push(row);
+    }
+    return Q;
+  }
+
 }
 
 class State extends NameSupport
@@ -55,3 +85,4 @@ class Act extends NameSupport
   }
 }
 
+export  {Agent,Environment,Act,State}
