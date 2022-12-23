@@ -25,7 +25,7 @@ class Environment{
 class Agent extends NameSupport
 {
   QStar=[];
-  constructor(name,data,countIterator=20){
+  constructor(name,data,countIterator=2){
     super(name);
     this.data=data;
     this.countIterator=countIterator;
@@ -55,21 +55,63 @@ class Agent extends NameSupport
     this.QStar[action]
   }
 
-  sumMax(p_tr){
-    for(let k=0;k<Object.keys(p_tr).length;k++)
+  sumMax(state,act,p_tr,Q){
+    // console.clear()
+    console.log(state,act,p_tr);
+    let res=0;
+    for(let i=0;i<Object.keys(p_tr).length;i++)
     {
-      console.log(this.states[k])
-      console.log(p_tr[this.states[k]])
-
+      let max=Math.max(...Object.values(Q[state]));
+      res+=p_tr[state]*max;
+      console.log('Q[state]')
+      console.log(Q[state])
+      console.log('max');
+      console.log(max);
+      console.log(p_tr[state])
+      console.log(Q[state])
+      // debugger;
     }
+    // debugger;
+    console.log('res',res)
+    return res;
   }
   makeQ(neta=.95){
     console.clear()
-    let Q=[];
+    let Q;
+    if(this.QStar.length==this.states.length)
+      Q=this.QStar;
+    else{
+      Q={};
+      this.states.forEach(element => {
+        let actions={};
+        this.actions.forEach(act=>{
+          actions[act]=0;
+        });
+        Q[element]=actions;
+      });
+    }
     let LActions=this.actions.length;
     let LStates=this.states.length;
-    for(let i=0;i<LActions;i++)
-    {
+    let oldQ=Object.assign({},Q);
+    do{
+    for(let i=0;i<LActions;i++) {
+      for (let j=0;j<LStates;j++) {
+        let cState=this.states[j];
+        let cAct=this.actions[i];
+        let R=this.rewards[cState][cAct];
+        let P_tr=this.transitions[cAct][cState];
+
+        Q[cState][cAct]=R+(neta*this.sumMax(cState,cAct,P_tr,oldQ));
+      }
+    }
+    this.countIterator--;
+    this.QStar=Q;
+    console.clear()
+    console.log(Q);
+debugger;
+  }while(this.countIterator>0);
+    return Q;
+/*
       let currentState=this.states[i];
       let qrow=[]
       for(let j=0;j<LStates;j++)
@@ -81,10 +123,9 @@ class Agent extends NameSupport
 
         qrow[this.actions[k(this.rewards[currentState]+(neta*this.sumMax()));
       }
-      Q.push(qrow);
+*/
+      console.log(Q);
     }
-    return Q;
-  }
 
 }
 
