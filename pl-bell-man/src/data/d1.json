@@ -1,46 +1,46 @@
 {
-    "states":["1loud","2loud","3loud","1unload","2unload","3unload"],
+    "states":["1load","2load","3load","1unload","2unload","3unload"],
     "actions":["right","left","load","unload"],
     "rewards":{
-        "1unload":{"right":0,"left":0,"load":0,"unload":0},
-        "2loud":{"right":0,"left":0,"load":0,"unload":0},
-        "3unload":{"right":0,"left":0,"load":0,"unload":0},
         "1load":{"right":0,"left":0,"load":0,"unload":0},
         "2load":{"right":0,"left":0,"load":0,"unload":0},
-        "3load":{"right":0,"left":0,"load":0,"unload":10}
+        "3load":{"right":0,"left":0,"load":0,"unload":10},
+        "1unload":{"right":0,"left":0,"load":0,"unload":0},
+        "2unload":{"right":0,"left":0,"load":0,"unload":0},
+        "3unload":{"right":0,"left":0,"load":0,"unload":0}
     },
     "transitions":{
         "right":{
-            "1loud":{"1loud":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "2loud":{"1loud":0,"2load":0,"3load":1,"1unload":0,"2unload":0,"3unload":0},
-            "3loud":{"1loud":0,"2load":0,"3load":1,"1unload":0,"2unload":0,"3unload":0},
-            "1unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0},
-            "2unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1},
-            "3unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1}
+            "1load":{"1load":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "2load":{"1load":0,"2load":0,"3load":1,"1unload":0,"2unload":0,"3unload":0},
+            "3load":{"1load":0,"2load":0,"3load":1,"1unload":0,"2unload":0,"3unload":0},
+            "1unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0},
+            "2unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1},
+            "3unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1}
         },
         "left":{
-            "1loud":{"1loud":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "2loud":{"1loud":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "3loud":{"1loud":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "1unloud":{"1loud":0,"2load":0,"3load":0,"1unload":1,"2unload":0,"3unload":0},
-            "2unloud":{"1loud":0,"2load":0,"3load":0,"1unload":1,"2unload":0,"3unload":0},
-            "3unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0}
+            "1load":{"1load":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "2load":{"1load":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "3load":{"1load":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "1unload":{"1load":0,"2load":0,"3load":0,"1unload":1,"2unload":0,"3unload":0},
+            "2unload":{"1load":0,"2load":0,"3load":0,"1unload":1,"2unload":0,"3unload":0},
+            "3unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0}
         },
         "load":{
-            "1loud":{"1loud":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "2loud":{"1loud":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "3loud":{"1loud":0,"2load":0,"3load":1,"1unload":0,"2unload":0,"3unload":0},
-            "1unloud":{"1loud":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "2unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0},
-            "3unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1}
+            "1load":{"1load":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "2load":{"1load":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "3load":{"1load":0,"2load":0,"3load":1,"1unload":0,"2unload":0,"3unload":0},
+            "1unload":{"1load":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "2unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0},
+            "3unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1}
         },
         "unload":{
-            "1loud":{"1loud":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "2loud":{"1loud":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
-            "3loud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1},
-            "1unloud":{"1loud":0,"2load":0,"3load":0,"1unload":1,"2unload":0,"3unload":0},
-            "2unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0},
-            "3unloud":{"1loud":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1}
+            "1load":{"1load":1,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "2load":{"1load":0,"2load":1,"3load":0,"1unload":0,"2unload":0,"3unload":0},
+            "3load":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1},
+            "1unload":{"1load":0,"2load":0,"3load":0,"1unload":1,"2unload":0,"3unload":0},
+            "2unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":1,"3unload":0},
+            "3unload":{"1load":0,"2load":0,"3load":0,"1unload":0,"2unload":0,"3unload":1}
         }
     }
 }

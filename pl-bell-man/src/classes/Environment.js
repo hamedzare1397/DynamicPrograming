@@ -24,12 +24,12 @@ class Environment{
 
 class Agent extends NameSupport
 {
-  Q0=[];
+  QStar=[];
   constructor(name,data,countIterator=20){
     super(name);
     this.data=data;
     this.countIterator=countIterator;
-    this.Q0=this.makeQ();
+    this.QStar=this.makeQ();
   }
 
   get printData()
@@ -50,18 +50,38 @@ class Agent extends NameSupport
   {
     return this.data.rewards;
   }
-  makeQ(){
+
+  maxQ(action){
+    this.QStar[action]
+  }
+
+  sumMax(p_tr){
+    for(let k=0;k<Object.keys(p_tr).length;k++)
+    {
+      console.log(this.states[k])
+      console.log(p_tr[this.states[k]])
+
+    }
+  }
+  makeQ(neta=.95){
+    console.clear()
     let Q=[];
-    let cols=this.actions.length;
-    let rows=this.states.length;
-    for(let i=0;i<rows;i++){
-      let row=this.rewards[1]
-      let row=[];
-      for(let j=0;j<cols;j++){
-        this.rewards["1load"]
-        row.push(0);
+    let LActions=this.actions.length;
+    let LStates=this.states.length;
+    for(let i=0;i<LActions;i++)
+    {
+      let currentState=this.states[i];
+      let qrow=[]
+      for(let j=0;j<LStates;j++)
+      {
+        let currentAction=this.actions[j];
+        // console.log(`R(${currentState},${currentAction})=${this.rewards[currentState][currentAction]}`)
+        let p_tr=this.transitions[currentAction][currentState];
+
+
+        qrow[this.actions[k(this.rewards[currentState]+(neta*this.sumMax()));
       }
-      Q.push(row);
+      Q.push(qrow);
     }
     return Q;
   }
