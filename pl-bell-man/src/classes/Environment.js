@@ -132,4 +132,3 @@ class Act extends NameSupport
 }
 
 export  {Agent,Environment,Act,State}
-
