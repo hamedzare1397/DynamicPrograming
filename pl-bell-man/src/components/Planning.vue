@@ -20,24 +20,24 @@
   <VBtn @click="exec()">اجرا</VBtn>
   <br/>
   <pre>
-    <show></show>
-    agent.QStar{{ agent.QStar }}
+    agent.QStar==>
+      {{ agent.QStar }}
   </pre>
 </template>
 
 <script setup>
-import show from './show.vue';
+
 import data from '@/data/d1.json';
 import {ref,nextTick} from 'vue';
-import {Agent} from '@/classes/Environment';
+import {Agent,Environment} from '@/classes/index.js';
 const QShowed=ref(0);
 
 const agent=new Agent("Hamed",data,20);
 async function exec()
 {
-  let q=agent.makeQ(.95);
-  console.log('exec',q);
-  this.QShowed=Object.assign({},q)
+  let env=new Environment();
+  this.QShowed=agent.run(.95);
+  agent.setEnv(env);
   await nextTick();
 }
   //
