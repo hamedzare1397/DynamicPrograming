@@ -35,10 +35,11 @@ const QShowed=ref(0);
 const agent=new Agent("Hamed",data,20);
 async function exec()
 {
-  let env=new Environment();
-  this.QShowed=agent.run(.95);
-  agent.setEnv(env);
-  await nextTick();
+  agent.makeStatesFromData();
+  // let env=new Environment();
+  // this.QShowed=agent.run(.95);
+  // agent.setEnv(env);
+  // await nextTick();
 }
   //
 </script>

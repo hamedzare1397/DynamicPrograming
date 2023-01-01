@@ -20,4 +20,7 @@ registerPlugins(app)
 import { TroisJSVuePlugin } from 'troisjs';
 app.use(TroisJSVuePlugin);
 
+import store from './stores';
+app.use(store);
+
 app.mount('#app')

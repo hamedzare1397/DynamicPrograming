@@ -1,12 +1,54 @@
 import NameSupport from './NameSupport.js'
-import Environment from './Environment'
+import Environment from './Environment';
+import State from './State';
+import Act from './Act';
+import store from './../stores';
 
 export default class Agent extends NameSupport
 {
-  QStar=[];
-  constructor(name,data,countIterator=2){
+  
+  QStar={};
+
+  get actions(){
+    return store.getters.rawActions
+  }
+  get states(){
+    return store.getters.rawStates
+  }
+  get transitions(){
+    return store.getters.rawTransitions
+  }
+  get rewards(){
+    return store.getters.rawRewards
+  }
+
+  makeStatesFromData(){
+    // this.makeStates();
+    this.makeActionsInStates();
+  }
+
+  makeActionsInStates()
+  {
+    for(let i=0;i<this.actions.length;i++)
+    {
+      console.log(store.state.states);
+      for( ndex of store.state.states){
+        console.log(ndex);
+      }
+      // for ([key,val] of store.state.states){
+      //   console.log(key,val);
+      // }
+    }
+  }
+  
+  makeStates(){
+    for(let i=0;i<this.states.length;i++)
+    {
+      store.commit('addState',new State(`${this.states[i]}`));
+    }
+  }
+  constructor(name,countIterator=2){
     super(name);
-    this.data=data;
     this.env=new Environment(this.transitions,this.rewards);
     this.countIterator=countIterator;
     // this.QStar=this.makeQ();
@@ -18,24 +60,7 @@ export default class Agent extends NameSupport
     this.env.agent=this;
   }
 
-  get printData()
-  {
-    return this.data
-  }
-  get states(){
-    return this.data.states;
-  }
-  get transitions(){
-    return this.data.transitions;
-  }
-  get actions()
-  {
-    return this.data.actions
-  }
-  get rewards()
-  {
-    return this.data.rewards;
-  }
+  
 
   maxQ(Q,state){    
     // console.log((Q));
