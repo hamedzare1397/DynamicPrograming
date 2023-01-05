@@ -1,9 +1,9 @@
 
 export default class Environment{
 
-  constructor(probability=[],reward=[]){
+  constructor(propability=[],reward=[]){
     this.rewards=reward;
-    this.probability=probability;
+    this.propability=propability;
   }
 
   setAgent(agent)
@@ -17,8 +17,8 @@ export default class Environment{
     return this.agent.run(.95);
   }
 
-  setProbabilities(probability){
-    this.probability=probability;
+  setProbabilities(propability){
+    this.propability=propability;
   }
 
   setReward(reward){
@@ -32,7 +32,7 @@ export default class Environment{
 
   getPropability(sState,act)
   {
-    return this.probability[act][sState]
+    return this.propability[act][sState]
   }
 
 }

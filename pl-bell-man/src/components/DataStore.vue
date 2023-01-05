@@ -29,6 +29,5 @@ const actions=computed(() => {
 
 function loadData(){
     store.commit('setRawData',rawData);
-    console.log(store.state.raw)
 }
 </script>

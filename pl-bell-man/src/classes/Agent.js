@@ -7,9 +7,12 @@ import store from './../stores';
 export default class Agent extends NameSupport
 {
   
-  QStar={};
+  get QStar(){
+    return store.getters.states
+  }
 
-  get actions(){
+  get actions()
+  {
     return store.getters.rawActions
   }
   get states(){
@@ -22,37 +25,39 @@ export default class Agent extends NameSupport
     return store.getters.rawRewards
   }
 
-  makeStatesFromData(){
-    // this.makeStates();
-    this.makeActionsInStates();
+ constructor(name,countIterator=2){
+    super(name);
+    this.env=new Environment(this.transitions,this.rewards);
+    this.countIterator=countIterator;
+    // this.QStar=this.makeQ();
   }
 
-  makeActionsInStates()
-  {
-    for(let i=0;i<this.actions.length;i++)
-    {
-      console.log(store.state.states);
-      for( ndex of store.state.states){
-        console.log(ndex);
-      }
-      // for ([key,val] of store.state.states){
-      //   console.log(key,val);
-      // }
-    }
-  }
-  
+  makeStatesFromData(){
+    this.makeStates();
+    this.makeActionsInStates();
+  }  
   makeStates(){
     for(let i=0;i<this.states.length;i++)
     {
       store.commit('addState',new State(`${this.states[i]}`));
     }
   }
-  constructor(name,countIterator=2){
-    super(name);
-    this.env=new Environment(this.transitions,this.rewards);
-    this.countIterator=countIterator;
-    // this.QStar=this.makeQ();
+  makeActionsInStates()
+  {
+    for(let i=0;i<this.actions.length;i++)
+    {
+      let cAct=this.actions[i];
+      for(let state of store.getters.states){
+        let propabilities=this.transitions[cAct][state.name]
+        // console.log('propabilities',propabilities);
+        state.addAct(this.actions[i],propabilities)
+      }
+      // console.log(store.getters.states)
+    }
   }
+
+
+ 
   setEnv(env){
     this.env=env;
     env.setReward(this.rewards)
@@ -80,7 +85,7 @@ export default class Agent extends NameSupport
     return res;
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
-  run(neta=.95){
+  oldrun(neta=.95){
     let Q;
     if(Object.keys(this.QStar).length==this.states.length)
       Q=this.QStar;
@@ -114,5 +119,17 @@ export default class Agent extends NameSupport
     this.QStar=Object.assign({},Q);
     return this.QStar;
     }
+  run(neta=.95){
+    let OldStates=Object.assign({},this.QStar);
 
+    for(let state of store.getters.states)
+    {
+      for(let act of state.actions)
+      {
+        let R=this.env.getRewardforAction(state.name,act.name);
+        console.log(state.sumAndMax());
+        // res=R+neta*(state.sumAndMax())
+      }
+    }
+  }
 }

@@ -1,14 +1,15 @@
 import NameSupport from "./NameSupport";
 export default class Act extends NameSupport
 {
-  constructor(name,probability=1){
+  val=0;
+  propability={}
+  constructor(name,propability={}){
     super(name);
-    this.probability=probability;
-    this.destination=destination;
+    this.propability=propability;
   }
 
-  setDestination(dest){
-    
-    this.destination=dest;
+  get prob()
+  {
+    return this.propability;
   }
 }
