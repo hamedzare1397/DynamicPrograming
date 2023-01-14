@@ -1,27 +1,25 @@
 
 <template>
-  <template  v-if="QShowed !== 0">
-    <v-table>
+    <v-table v-if="agent.lenStates>0">
       <thead>
         <tr>
           <th>States</th>
-          <th v-for="item in agent.actions ">{{ item }}</th>
+          <th v-for="item in store.getters.rawActions ">{{ item }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,indexState) in QShowed">
-          <td>{{ indexState }}</td>
-          <th v-for="(i,indexAction) in item">{{ i }}</th>
+        <tr v-for="item in agent.states">
+          <td>{{ item.name }}</td>
+          <th v-for="act in item.actions">{{ act.value }}</th>
         </tr>
       </tbody>
     </v-table>
-  </template>
   <br/>
   <VBtn @click="exec()">اجرا</VBtn>
+  <VBtn @click="init()">مقدار دهی اولیه</VBtn>
   <br/>
   <pre>
-    agent.QStar==>
-      {{ agent.QStar }}
+    {{QShowed}}
   </pre>
 </template>
 
@@ -30,16 +28,19 @@
 import data from '@/data/d1.json';
 import {ref,nextTick} from 'vue';
 import {Agent,Environment} from '@/classes/index.js';
-const QShowed=ref(0);
+var QShowed=ref(0);
 
-const agent=new Agent("Hamed",data,20);
+const agent=new Agent("Hamed");
+function init()
+{
+  agent.init();
+}
 async function exec()
 {
-  agent.makeStatesFromData();
-  let env=new Environment();
-  this.QShowed=agent.run(.95);
-  // agent.setEnv(env);
-  // await nextTick();
+agent.run();
+QShowed=agent.QStar;
+nextTick()
 }
+
   //
 </script>

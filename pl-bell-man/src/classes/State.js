@@ -2,25 +2,25 @@ import NameSupport from "./NameSupport";
 import Act from './Act';
 export default class State extends NameSupport
 {
-  actions=[];
-  addAct(act,propabilities={}){
-    this.actions.push(new Act(act,propabilities));
+  actions={};
+  addAct(act,propabilities={},reward=0){
+    this.actions[act]=new Act(act,propabilities,reward);
   }
 
   get topAct(){
-    let maxAct=null
-    for(act of this.actions)
-    {
-      if(maxAct===null){
-        maxAct=act;
-        continue;
+    let topAct={value:0};
+    Object.values(this.actions).forEach(action=>{
+      if(action.value!==0)
+      {
+        if(topAct.value<action.value){
+          topAct=action;
+        }
       }
-      else if(maxAct.val<act.val){
-        maxAct=act;
-      }
-    }
-    return maxAct;
+    });
+    return topAct;
   }
+
+
 
   sumAndMax()
   {
