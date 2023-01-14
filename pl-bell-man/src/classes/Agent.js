@@ -27,6 +27,7 @@ export default class Agent extends NameSupport
       let temp={};
       Object.entries(cstate.actions).forEach(act=>{
         const [an,cact]=act;
+        // console.log(cact.value);
         temp[an]=cact.value;
       })
       q[cns]=temp;
@@ -75,7 +76,7 @@ export default class Agent extends NameSupport
         let sum=0;
         Object.entries(cAct.propability).forEach(row=>{
           const [destState,propability]=row;
-          const maxQ=Math.max(Object.values(Q[destState]));
+          const maxQ=Math.max(...Object.values(Q[destState]));
           // const maxQ=Q[destState].topAct.value;
           // if(cStateName=='3load')
             // console.log(`${cStateName}|${destState},${cActName})=${propability}*${maxQ}`)
