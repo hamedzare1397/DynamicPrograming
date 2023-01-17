@@ -38,7 +38,7 @@ import { PhysicalMaterial, StandardMaterial, Text } from 'troisjs';
   export default {
     methods:{
         sceneClick(event){
-            console.log(event)
+            // console.log(event)
             alert('salam');
         }
     },

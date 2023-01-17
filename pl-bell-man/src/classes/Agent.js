@@ -32,7 +32,7 @@ export default class Agent extends NameSupport
       })
       q[cns]=temp;
     })
-    console.log('q',q);
+    // console.log('q',q);
     return q;
   }
 

@@ -24,12 +24,12 @@ export default class State extends NameSupport
 
   sumAndMax()
   {
-    console.log('sumAndMax')
+    // console.log('sumAndMax')
     for(let act of this.actions){
       for(const [key,val] in act.propability)
       {
-        console.log(key)
-        console.log(val)
+        // console.log(key)
+        // console.log(val)
       }
     }
   }

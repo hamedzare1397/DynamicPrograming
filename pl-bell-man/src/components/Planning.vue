@@ -1,45 +1,65 @@
 
 <template>
-    <v-table v-if="agent.lenStates>0">
+    <v-table v-if="QShowed">
       <thead>
         <tr>
-          <th>States</th>
+          <th>States </th>
           <th v-for="item in store.getters.rawActions ">{{ item }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in agent.states">
-          <td>{{ item.name }}</td>
-          <th v-for="act in item.actions">{{ act.value }}</th>
+        <tr v-for="(row,statename) in QShowed">
+          <td>{{ statename }}</td>
+          <template v-for="(val,actionName) in row" >
+            <td :class="Math.max(...Object.values(row))==val?'bg-success':''">{{ val }}</td>
+          </template>
+          <TD>{{ bestAction(row) }}</TD>
+          
         </tr>
       </tbody>
     </v-table>
   <br/>
-  <VBtn @click="exec()">اجرا</VBtn>
+  <VBtn @click="exec()"> ({{ QCount }})اجرا</VBtn>
   <VBtn @click="init()">مقدار دهی اولیه</VBtn>
-  <br/>
-  <pre>
-    {{QShowed}}
-  </pre>
 </template>
 
 <script setup>
 
 import data from '@/data/d1.json';
-import {ref,nextTick} from 'vue';
+import store from '@/stores';
+import {ref,watch, nextTick} from 'vue';
 import {Agent,Environment} from '@/classes/index.js';
-var QShowed=ref(0);
+const QShowed=ref('');
+const QCount=ref(0);
 
-const agent=new Agent("Hamed");
+var agent = ref(0);
 function init()
 {
-  agent.init();
+  agent=new Agent("Hamed");
+  agent.init(); 
 }
 async function exec()
 {
-agent.run();
-QShowed=agent.QStar;
-nextTick()
+  agent.run(); 
+  // console.log(agent.QStar)
+  await nextTick();
+  QShowed.value=agent.QStar;
+  this.QCount++;
+}
+
+function bestAction(state){
+  let maxq=0;
+  let lable='';
+    
+  Object.entries(state).forEach(act=>{
+    let [l,v]=act;
+    if(maxq<v)
+    {
+      maxq=v;
+      lable=l;
+    }
+  })
+  return lable;
 }
 
   //
